@@ -414,6 +414,22 @@ function renderLinks(item) {
   return row;
 }
 
+
+function renderExtraBlocks(item) {
+  const blocks = [];
+  const story = text(item.suggested_story_fill);
+  if (story) {
+    blocks.push(el("h3", {}, ["Suggested story fill"]));
+    blocks.push(el("div", { class: "extra-block" }, [story]));
+  }
+  const first = text(item.first_comment);
+  if (first) {
+    blocks.push(el("h3", {}, ["First comment"]));
+    blocks.push(el("div", { class: "extra-block" }, [first]));
+  }
+  return blocks;
+}
+
 function renderCard(item) {
   const saved = session.decisions.byId.get(item.id) || null;
   const card = el("article", { class: "card" });
@@ -496,6 +512,7 @@ function renderCard(item) {
     flags,
     el("h3", {}, ["Draft"]),
     renderDraft(item),
+    ...renderExtraBlocks(item),
     renderLinks(item),
     el("div", { class: "field" }, [
       el("label", { for: noteId }, ["Optional note"]),
