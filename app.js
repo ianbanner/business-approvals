@@ -496,6 +496,9 @@ function renderCard(item) {
   const titleNodes = [];
   if (text(item.title)) titleNodes.push(el("h2", { class: "item-title" }, [text(item.title)]));
   if (text(item.subtitle)) titleNodes.push(el("p", { class: "item-subtitle" }, [text(item.subtitle)]));
+  if (text(item.alt_title)) titleNodes.push(el("p", { class: "item-subtitle" }, ["Alternative title: " + text(item.alt_title)]));
+  const tagList = Array.isArray(item.tags) ? item.tags.filter((tag) => typeof tag === "string" && tag.trim()) : [];
+  if (tagList.length) titleNodes.push(el("p", { class: "item-tags" }, ["Tags: " + tagList.join(", ")]));
 
   card.append(
     heading,
